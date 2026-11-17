@@ -2,9 +2,16 @@
 
 import styles from "./Sidebar.module.css";
 import { useState } from "react";
+import { campusSpots } from "./campusSpots";
 
-export default function Sidebar() {
+type SidebarProps = {
+    selectedSpotId: string | null;
+    onSelectSpot: (spotId: string | null) => void;
+};
+
+export default function Sidebar({ selectedSpotId, onSelectSpot }: SidebarProps) {
     const [open, setOpen] = useState({
+        classrooms: false,
         study: false,
         food: false
     });
@@ -35,9 +42,35 @@ export default function Sidebar() {
                     <button
                         className={styles.categoryButton}
                         type="button"
+                        aria-expanded={open.classrooms}
+                        aria-controls="classroom-building-list"
+                        onClick={() =>
+                            setOpen(prev => ({
+                                ...prev,
+                                classrooms: !prev.classrooms
+                            }))
+                        }
                     >
                         Classrooms
                     </button>
+
+                    {open.classrooms && (
+                        <ul id="classroom-building-list" className={styles.buildingList}>
+                            {campusSpots.map((spot) => (
+                                <li key={spot.id} className={styles.buildingItem}>
+                                    <button
+                                        className={styles.buildingButton}
+                                        data-selected={selectedSpotId === spot.id}
+                                        type="button"
+                                        aria-pressed={selectedSpotId === spot.id}
+                                        onClick={() => onSelectSpot(spot.id)}
+                                    >
+                                        {spot.name}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </li>
 
                 <li>

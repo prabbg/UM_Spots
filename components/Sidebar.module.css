@@ -95,6 +95,57 @@
     text-decoration: none;
 }
 
+.buildingList {
+    display: flex;
+    margin: 0;
+    padding: 0.25rem 0 0.75rem 1.25rem;
+    flex-direction: column;
+    gap: 0.125rem;
+    list-style: none;
+}
+
+.buildingList .buildingItem {
+    padding: 0;
+    border-radius: 0.375rem;
+    color: #d4d4d8;
+    font-size: inherit;
+    line-height: 1.35;
+}
+
+.buildingButton {
+    display: block;
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border: 0;
+    border-radius: 0.375rem;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.buildingButton:hover {
+    background: transparent;
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 7px;
+}
+
+.buildingButton[data-selected="true"] {
+    background: transparent;
+    box-shadow: none;
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 7px;
+}
+
+.buildingButton:focus-visible {
+    outline: 2px solid rgb(255 255 255 / 70%);
+    outline-offset: -2px;
+}
+
 .categoryButton:focus-visible,
 .searchButton:focus-visible {
     border-radius: 0.375rem;
@@ -106,6 +157,7 @@
     .roomList > li:last-child {
         border-bottom: 0;
     }
+
 }
 
 .categoryButton:hover {

@@ -2,18 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import { campusSpots } from "./campusSpots";
 import styles from "./CampusMap.module.css";
 
-const campusSpots = [
-  {
-    id: "eitc",
-    name: "Engineering Complex",
-    coordinates: [-97.133, 49.809] as [number, number],
-  },
-];
+type CampusMapProps = {
+  selectedSpotId: string | null;
+  onSelectSpot: (spotId: string | null) => void;
+};
 
-export default function CampusMap() {
+export default function CampusMap({ selectedSpotId, onSelectSpot }: CampusMapProps) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const markerElementsRef = useRef(new Map<string, HTMLButtonElement>());
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -45,35 +45,40 @@ export default function CampusMap() {
       style: "mapbox://styles/prabbg/cmtzbefb200a501ssdex0417y",
       ...initialView,
     });
+    mapRef.current = map;
+    const markerElements = markerElementsRef.current;
 
     campusSpots.forEach((spot) => {
       const marker = document.createElement("button");
       marker.type = "button";
       marker.className = styles.marker;
-      marker.setAttribute("aria-label", `View ${spot.name}`);
+      marker.setAttribute("aria-label", `Zoom to ${spot.name}`);
       marker.title = spot.name;
+      markerElements.set(spot.id, marker);
 
       const dot = document.createElement("span");
       dot.className = styles.markerDot;
       dot.setAttribute("aria-hidden", "true");
       marker.appendChild(dot);
 
+      const label = document.createElement("span");
+      label.className = styles.markerLabel;
+      label.textContent = spot.name;
+      marker.appendChild(label);
+
       marker.addEventListener("click", () => {
-        const wasSelected = marker.classList.contains(styles.markerSelected);
-
-        mapContainer.current
-          ?.querySelectorAll(`.${styles.markerSelected}`)
-          .forEach((element) => element.classList.remove(styles.markerSelected));
-
-        if (!wasSelected) {
-          marker.classList.add(styles.markerSelected);
-          map.easeTo({ center: spot.coordinates, duration: 600 });
-        }
+        onSelectSpot(spot.id);
       });
 
       new mapboxgl.Marker({ element: marker, anchor: "center" })
         .setLngLat(spot.coordinates)
         .addTo(map);
+    });
+
+    map.on("zoomend", () => {
+      if (map.getZoom() < 17.4) {
+        onSelectSpot(null);
+      }
     });
 
     map.on("error", (event) => {
@@ -83,9 +88,35 @@ export default function CampusMap() {
     });
 
     return () => {
+      markerElements.clear();
+      mapRef.current = null;
       map.remove();
     };
-  }, []);
+  }, [onSelectSpot]);
+
+  useEffect(() => {
+    markerElementsRef.current.forEach((element, spotId) => {
+      element.classList.toggle(styles.markerSelected, spotId === selectedSpotId);
+    });
+
+    const map = mapRef.current;
+
+    if (!selectedSpotId) {
+      return;
+    }
+
+    const spot = campusSpots.find((item) => item.id === selectedSpotId);
+
+    if (!spot || !map) {
+      return;
+    }
+
+    map.easeTo({
+      center: spot.coordinates,
+      zoom: Math.max(map.getZoom(), 17.5),
+      duration: 850,
+    });
+  }, [selectedSpotId]);
 
   return (
     <div className={styles.wrapper}>

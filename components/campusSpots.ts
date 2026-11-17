@@ -1,0 +1,46 @@
+export type CampusSpot = {
+  id: string;
+  name: string;
+  coordinates: [longitude: number, latitude: number];
+};
+
+export const campusSpots: CampusSpot[] = [
+  { id: "active-living-centre", name: "Active Living Centre", coordinates: [-97.138205, 49.806624] },
+  { id: "administration", name: "Administration", coordinates: [-97.1327145, 49.8095799] },
+  { id: "agriculture", name: "Agriculture", coordinates: [-97.135335, 49.806724] },
+  { id: "allen-physics", name: "Allen Physics", coordinates: [-97.134574, 49.810746] },
+  { id: "animal-science", name: "Animal Science Entomology", coordinates: [-97.137404, 49.805958] },
+  { id: "architecture-2", name: "Architecture 2", coordinates: [-97.136507, 49.807831] },
+  { id: "armes", name: "Armes", coordinates: [-97.133735, 49.811045] },
+  { id: "artlab", name: "ARTLab", coordinates: [-97.130248, 49.808538] },
+  { id: "biological-sciences", name: "Biological Sciences", coordinates: [-97.134788, 49.810185] },
+  { id: "buller", name: "Buller", coordinates: [-97.13347, 49.810508] },
+  { id: "drake", name: "Drake Centre", coordinates: [-97.130111, 49.808111] },
+  { id: "duff-roblin", name: "Duff Roblin", coordinates: [-97.132612, 49.811059] },
+  { id: "education", name: "Education", coordinates: [-97.136887, 49.808703] },
+  { id: "dafoe-library", name: "Elizabeth Dafoe Library", coordinates: [-97.131462, 49.810221] },
+  { id: "eitc-1", name: "Engineering E1", coordinates: [-97.133404, 49.808328] },
+  { id: "eitc-2", name: "Engineering E2", coordinates: [-97.133825, 49.808714] },
+  { id: "eitc-3", name: "Engineering E3", coordinates: [-97.134387, 49.808422] },
+  { id: "extended-education", name: "Extended Education Complex", coordinates: [-97.138645, 49.807437] },
+  { id: "fletcher-argue", name: "Fletcher Argue", coordinates: [-97.131299, 49.809741] },
+  { id: "frank-kennedy-centre", name: "Frank Kennedy Centre", coordinates: [-97.138496, 49.807038] },
+  { id: "helen-glass", name: "Helen Glass Centre for Nursing", coordinates: [-97.135599, 49.809098] },
+  { id: "human-ecology", name: "Human Ecology", coordinates: [-97.13214, 49.810783] },
+  { id: "investors-group-athletic-centre", name: "Investors Group Athletic Centre", coordinates: [-97.1395983, 49.8090349] },
+  { id: "isbister", name: "Isbister", coordinates: [-97.13071, 49.809385] },
+  { id: "machray", name: "Machray Hall", coordinates: [-97.133371, 49.81127] },
+  { id: "max-bell-centre", name: "Max Bell Centre", coordinates: [-97.1393111, 49.8083314] },
+  { id: "music-tache", name: "Taché Arts Complex", coordinates: [-97.131606, 49.808093] },
+  { id: "parker-chemistry", name: "Parker Chemistry", coordinates: [-97.134558, 49.811287] },
+  { id: "robson-hall", name: "Robson Hall", coordinates: [-97.130648, 49.811922] },
+  { id: "john-russell", name: "John A. Russell", coordinates: [-97.1353643, 49.8080747] },
+  { id: "schultz", name: "Robert B. Schultz Lecture Theatre", coordinates: [-97.136696, 49.810086] },
+  { id: "st-johns", name: "St. John’s College", coordinates: [-97.136905, 49.810726] },
+  { id: "st-pauls", name: "St. Paul’s College", coordinates: [-97.137494, 49.810003] },
+  { id: "stanley-pauley-engineering", name: "Stanley Pauley Engineering", coordinates: [-97.13428, 49.807874] },
+  { id: "tier", name: "Tier", coordinates: [-97.130941, 49.809184] },
+  { id: "umsu-university-centre", name: "UMSU University Centre", coordinates: [-97.1343881, 49.8094113] },
+  { id: "university-college", name: "University College", coordinates: [-97.13138, 49.811362] },
+  { id: "wallace", name: "Wallace", coordinates: [-97.135849, 49.81176] },
+];
